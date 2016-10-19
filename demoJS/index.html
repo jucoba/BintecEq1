@@ -1,0 +1,66 @@
+<html>
+	<head>
+		<script type="text/javascript" src="lib/axios/dist/axios.standalone.js"></script> <script type="text/javascript" src="lib/CryptoJS/rollups/hmac-sha256.js"></script> <script type="text/javascript" src="lib/CryptoJS/rollups/sha256.js"></script> <script type="text/javascript" src="lib/CryptoJS/components/hmac.js"></script> <script type="text/javascript" src="lib/CryptoJS/components/enc-base64.js"></script> <script type="text/javascript" src="lib/url-template/url-template.js"></script> <script type="text/javascript" src="lib/apiGatewayCore/sigV4Client.js"></script> <script type="text/javascript" src="lib/apiGatewayCore/apiGatewayClient.js"></script> <script type="text/javascript" src="lib/apiGatewayCore/simpleHttpClient.js"></script> <script type="text/javascript" src="lib/apiGatewayCore/utils.js"></script>
+		<script type="text/javascript" src="lib/jsencrypt.min.js"></script> <script type="text/javascript" src="lib/nequi-encrypter.js"></script> <script type="text/javascript" src="apigClient.js"></script>
+		<script type="text/javascript">
+			var apiClient = apigClientFactory.newClient({ apiKey: '1xMnGGGjaXaFRUsE4tKit6t5E9F6hNK64esu65e3',
+      		accessKey: 'AKIAJB433NJNBA6GJNFA',
+      		secretKey: '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'
+			});
+
+			// Canal entregado por el equipo de Nequi
+			var CHANNEL = "HKT01-C001";
+
+			//var CLIENTID = '3004229986';
+			// Construye a partir del celular y valor a recargar el mensaje de entrada 
+			var getBodyValidateClient = function(phoneNumber, value){
+				var messageId = new Date().getTime().toString(); 
+				return {
+              		"RequestMessage": {
+                		"RequestHeader": {
+							"Channel": CHANNEL,
+							"RequestDate": new Date().toJSON(),
+							"MessageID": messageId.substring(messageId.length-9), 
+							"ClientID": phoneNumber,
+							"Address": {
+                    			"DeviceAddress": "1.1.1.1",
+                    			"NetworkAddress": "1.1.1.1"
+                  			},
+							"Destination": {
+								"ServiceName": "RechargeService", 
+								"ServiceOperation": "validateClient", 
+								"ServiceRegion": "C001", 
+								"ServiceVersion": "1.0.0"
+							} 
+						},
+                		"RequestBody": {
+                  			"any": {
+								"validateClientRQ": {
+									"phoneNumber": phoneNumber.toString(), "value": value.toString()
+								} 
+							}
+						} 
+					}
+				} 
+			};
+
+		</script>
+	</head>
+	<body>
+		<script type="text/javascript">
+			apiClient.servicesClientserviceValidateclientPost({}, getBodyValidateClient("3195414070",0))
+			.then (function(response) {
+				console.log("ok");
+				console.log(response);
+
+			}).catch (function(error) {
+				console.log("error");
+				console.log(error);
+
+			});
+
+
+		</script>
+
+	</body>
+</html>
