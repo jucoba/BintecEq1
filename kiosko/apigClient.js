@@ -19,7 +19,7 @@ apigClientFactory.newClient = function (config) {
     if(config === undefined) {
         config = {
             accessKey: 'AKIAJB433NJNBA6GJNFA',
-            secretKey: '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',
+            secretKey: '1xMnGGGjaXaFRUsE4tKit6t5E9F6hNK64esu65e3',
             sessionToken: '',
             region: '',
             apiKey: undefined,
