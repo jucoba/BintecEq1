@@ -38,6 +38,12 @@
             <artifactId>nequi-api-client-qa</artifactId> 
             <version>1.0.0</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.nequi/nequi-notification-api-sdk-qa -->
+        <dependency>
+            <groupId>com.nequi</groupId>
+            <artifactId>nequi-notification-api-sdk-qa</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
