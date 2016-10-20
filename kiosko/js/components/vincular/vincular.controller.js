@@ -26,7 +26,7 @@
                 
                 data.$update(data[0].$id, student);
                 vc.showSucess=true;
-                vc.messageAlert="Perfecto, ahora eres un quiki millennial";
+                vc.messageAlert="Perfecto, ahora eres un Kuiqi millennial";
               }else{
                 vc.showError=true;
                 vc.messageAlert="Debes tener Nequi, instalala";
@@ -45,7 +45,7 @@
                 
                 data.$add(student);
                 vc.showSucess=true;
-                vc.messageAlert="Perfecto, ahora eres un quiki millennial";
+                vc.messageAlert="Perfecto, ahora eres un Kuiqi millennial";
               }else{
                 vc.showError=true;
                 vc.messageAlert="Debes tener Nequi, instalala";

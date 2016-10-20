@@ -1,0 +1,21 @@
+.topbar{
+	background-color:#000033;
+	margin: 0px 0px 0px 0px;
+}
+
+.btn-kuiqi{
+	background-color:#000033;
+	color: white;
+	padding: 6px 25px;
+	border-radius: 0px;
+}
+
+.alert-sucess-kuiqi {
+    color: #333333;
+    background-color: #E5D541;
+    border-color: #ebccd1;
+}
+
+.input-kuiqi {
+	color: #666666;
+}

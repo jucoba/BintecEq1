@@ -10,7 +10,6 @@ var port = 3000;
 var options = {
   host: "localhost",
   port: 8080,
-  path: '/BintecWeb/api/user/pay/',
   method: 'GET',
   headers: { 'Content-Type': 'application/json' }
 };
@@ -58,12 +57,15 @@ io.on('connection', function (socket) {
 
         socket.on('checkstudent', function (data) {
             var id = data.carnet;
+            console.log("si llegue");
+            options.path='/BintecWeb/api/user/pay/'+id;
 
-            options.path=options.path+id;
+            console.log(options.path);
 
             http.request(options, function(res) {
-
+                console.log('STATUS: ' + res.statusCode);
                 res.on("data", function (data) {
+                    console.log(data);
                     var jsonObject = JSON.parse(data);
                     // append this chunk to our growing `data` var
                     

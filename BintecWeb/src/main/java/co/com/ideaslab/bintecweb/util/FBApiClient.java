@@ -11,7 +11,13 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
+import com.firebase.client.ValueEventListener;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.concurrent.Semaphore;
 
 /**
@@ -35,39 +41,61 @@ public class FBApiClient {
         Query query =myFirebaseRef.orderByChild("id_carnet").equalTo(id);
         
         final Semaphore semaphore = new Semaphore(0);
-        query.addChildEventListener(new ChildEventListener() {
+        
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot ds) {
+                 Map<String, Object> newPost = (Map<String, Object>) ds.getValue();
+                 
+                 Set<Entry<String, Object>> data=newPost.entrySet();
+                 for (Iterator<Entry<String, Object>> iterator = data.iterator(); iterator.hasNext();) {
+                    Entry<String, Object> next = iterator.next();
+                    HashMap map=(HashMap)next.getValue();
+                    System.out.println("cellphone: " + map.get("cellphone"));
+                    phone=map.get("cellphone").toString();
+                    
+                }
+                 semaphore.release();
+                
+            }
+
+            @Override
+            public void onCancelled(FirebaseError fe) {
+                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        });
+        /*query.addChildEventListener(new ChildEventListener() {
 
             @Override
             public void onChildAdded(DataSnapshot ds, String string) {
                 //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                Map<String, Object> newPost = (Map<String, Object>) ds.getValue();
-                System.out.println("cellphone: " + newPost.get("cellphone"));
-                phone=newPost.get("cellphone").toString();
-                semaphore.release();
+               
                 
             }
 
             @Override
             public void onChildChanged(DataSnapshot ds, String string) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                System.out.println("cellphone: ");
+                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
 
             @Override
             public void onChildRemoved(DataSnapshot ds) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
 
             @Override
             public void onChildMoved(DataSnapshot ds, String string) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
 
             @Override
             public void onCancelled(FirebaseError fe) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
             
-        });
+        });*/
         // wait until the onDataChange callback has released the semaphore
         semaphore.acquire();
         
