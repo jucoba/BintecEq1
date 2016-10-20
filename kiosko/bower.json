@@ -1,0 +1,24 @@
+{
+  "name": "kiosko",
+  "authors": [
+    "Julian Andres Gamez Marin <juliangamez@ideaslab.com.co>"
+  ],
+  "description": "",
+  "main": "bower.json",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-ui-router": "0.3.1",
+    "angular": "1.5.8",
+    "bootstrap": "^3.3.7",
+    "firebase": "^3.5.0",
+    "angularfire": "^2.0.2"
+  }
+}

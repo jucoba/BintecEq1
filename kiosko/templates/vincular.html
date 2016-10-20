@@ -1,0 +1,14 @@
+<h1>{{vc.title}}</h1>
+<div ng-show="vc.showError" class="alert alert-danger" role="alert">{{vc.messageAlert}}</div>
+<div ng-show="vc.showSucess" class="alert alert-success" role="alert">{{vc.messageAlert}}</div>
+<form ng-submit="vc.vincular(vc.student)">
+  <div class="form-group">
+    <label for="id_carnet">Id carnet</label>
+    <input type="text" class="form-control" id="id_carnet" placeholder="Id carnet" ng-model="vc.student.id_carnet" required>
+  </div>
+  <div class="form-group">
+    <label for="celular">Celular</label>
+    <input type="text" class="form-control" id="celular" placeholder="Celular" ng-model="vc.student.cellphone" required>
+  </div>
+  <button type="submit" class="btn btn-default">Vincular</button>
+</form>
