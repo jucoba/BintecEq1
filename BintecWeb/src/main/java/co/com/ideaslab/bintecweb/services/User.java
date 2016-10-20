@@ -33,7 +33,7 @@ public class User {
     FBApiClient fbApiClient;
     ApiClientNotification apiClientNotif;
 
-    private static Integer VALUE = 2;
+    private static Integer VALUE = 2000;
 
     /*
      * @param documentType
@@ -71,7 +71,7 @@ public class User {
                 status = responseHeader.getAsJsonObject("Status");
                 success = status.get("StatusCode").getAsString();
                 if (success.equalsIgnoreCase("0")) {
-                    output = apiClientNotif.sendPushNotification(Long.parseLong(57+phone1), "Pago parqueadero", "Se ha pagado " + VALUE + "pesos por parqueo.");
+                    output = apiClientNotif.sendPushNotification(Long.parseLong(57+phone1), "Pago parqueadero", "Se ha pagado " + VALUE + " mil pesos por parqueo.");
                 }
             }
 
