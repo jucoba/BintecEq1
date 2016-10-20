@@ -1,7 +1,7 @@
 (function() {
     'use strict';
     angular
-        .module('bintec.core', ['ui.router', 'firebase']).config(config)
+        .module('bintec.core', ['ui.router', 'firebase', 'btford.socket-io']).config(config)
         .constant("CONFIG", {
           "apiKey":"AIzaSyDyqrVMuSYwpZeTl87drBouwjM_Dc7dISo",
           "authDomain": "bintec-e5dd4.firebaseapp.com",
@@ -19,6 +19,12 @@ function config($stateProvider,$urlRouterProvider) {
         templateUrl: 'templates/vincular.html',
         controller: 'VincularController',
         controllerAs: 'vc'
+      })
+      .state('talantera', {
+        url: '/talantera',
+        templateUrl: 'templates/talantera.html',
+        controller: 'TalanteraController',
+        controllerAs: 'tc'
       });
 
   $urlRouterProvider.otherwise('/vincular');
