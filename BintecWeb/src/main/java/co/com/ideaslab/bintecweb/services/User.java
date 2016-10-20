@@ -11,6 +11,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -42,23 +44,29 @@ public class User {
 
         fbApiClient = new FBApiClient();
         
-        //String phone1 = fbApiClient.getCellphone(id);
-        //String phone1 = "3999935214";
-        String phone1 = "3195414070";
-        String phone2 = "3004521687";
+        String phone1;
+        try {
+            phone1 = fbApiClient.getCellphone(id);
+            String phone2 = "3004521687";
 
-        apiClient = new ApiClient();
-        gson = new Gson();
-        JsonObject output = apiClient.validateClient(Long.parseLong(phone1), 0);
+            apiClient = new ApiClient();
+            gson = new Gson();
+            JsonObject output = apiClient.validateClient(Long.parseLong(phone1), 0);
 
-        JsonObject responseMessage = output.getAsJsonObject("ResponseMessage");
-        JsonObject responseHeader = responseMessage.getAsJsonObject("ResponseHeader");
-        JsonObject status = responseHeader.getAsJsonObject("Status");
-        String success = status.get("StatusCode").getAsString();
-        if (success.equalsIgnoreCase("0")) {
-            //output = apiClient.transferservicesTransferPost(Long.parseLong(phone1), Long.parseLong(phone2), 2);
+            JsonObject responseMessage = output.getAsJsonObject("ResponseMessage");
+            JsonObject responseHeader = responseMessage.getAsJsonObject("ResponseHeader");
+            JsonObject status = responseHeader.getAsJsonObject("Status");
+            String success = status.get("StatusCode").getAsString();
+            if (success.equalsIgnoreCase("0")) {
+                //output = apiClient.transferservicesTransferPost(Long.parseLong(phone1), Long.parseLong(phone2), 2);
+            }
+
+            return Response.status(200).entity(gson.toJson(output)).build();
+        } catch (InterruptedException ex) {
+            //Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        return Response.status(200).entity(gson.toJson(output)).build();
+        //String phone1 = "3999935214";
+        //String phone1 = "3195414070";
+        return Response.serverError().build();
     }
 }
