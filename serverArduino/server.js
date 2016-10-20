@@ -1,10 +1,21 @@
 var express        = require('express');  
 var app            = express();  
-var httpServer = require("http").createServer(app);  
+var http = require("http");
+var httpServer = http.createServer(app);  
 var five = require("johnny-five");  
 var io=require('socket.io')(httpServer);
 
-var port = 3000; 
+var port = 3000;
+
+var options = {
+  host: "localhost",
+  port: 8080,
+  path: '/BintecWeb/api/user/pay/',
+  method: 'GET',
+  headers: { 'Content-Type': 'application/json' }
+};
+
+
 
 app.use(express.static(__dirname + '/public'));
 
@@ -47,12 +58,37 @@ io.on('connection', function (socket) {
 
         socket.on('checkstudent', function (data) {
             var id = data.carnet;
+
+            options.path=options.path+id;
+
+            http.request(options, function(res) {
+
+                res.on("data", function (data) {
+                    var jsonObject = JSON.parse(data);
+                    // append this chunk to our growing `data` var
+                    
+                    if(jsonObject!=null && jsonObject.ResponseMessage!=null){
+                        if(jsonObject.ResponseMessage.ResponseHeader.Status.StatusCode=="0"){
+                            servo.to(180);
+                            board.wait(2000, function() {
+                              servo.home();
+                              servo.stop();
+                            });
+                        }
+                    }
+                });
+                
+                res.setEncoding('utf8');
+
+              /*console.log('STATUS: ' + res.statusCode);
+              console.log('HEADERS: ' + JSON.stringify(res.headers));
+              res.setEncoding('utf8');
+              res.on('data', function (chunk) {
+                console.log('BODY: ' + chunk);
+              });*/  
+            }).end(); 
+
             
-             servo.to(180);
-            board.wait(2000, function() {
-              servo.home();
-              servo.stop();
-            });
             console.log(id);
 
         });
